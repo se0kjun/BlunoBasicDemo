@@ -129,18 +129,15 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
 		try {
 
-			int state = Integer.parseInt(theString.trim());
+//			int state = Integer.parseInt(theString.trim());
 
-			if (state != previousState) {
-				if(previousState == LOW) {
-					Calendar c = Calendar.getInstance();
-					writeToFile(String.format("%d-%d-%d:%d-%d-%d, %d\n",
-							c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), subject_id));
-				}
-				previousState = state;
-			}
+//			if(state == LOW) {
+				Calendar c = Calendar.getInstance();
+				writeToFile(String.format("%d-%d-%d:%d-%d-%d-%d, %d\n",
+						c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND),c.get(Calendar.MILLISECOND), subject_id));
+//			}
 		} catch(Exception e) {
-			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -173,8 +170,8 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 	private void writeSubjectDelim() {
 		subject_id ++;
 		Calendar c = Calendar.getInstance();
-		String delim = String.format("=====================subject:%d;datetime:%d-%d-%d;%d-%d-%d;=====================\n",
-				subject_id, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
+		String delim = String.format("=====================subject:%d;datetime:%d-%d-%d;%d-%d-%d-%d;=====================\n",
+				subject_id, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
 		writeToFile(delim);
 	}
 }
