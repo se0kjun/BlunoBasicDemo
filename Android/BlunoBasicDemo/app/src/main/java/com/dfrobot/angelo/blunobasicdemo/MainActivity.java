@@ -31,7 +31,10 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 	private Button buttonAddSubject;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
-	
+	private Button buttonClear;
+	private Button buttonTrue;
+	private Button buttonFalse;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,11 +53,18 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 		buttonScan.setOnClickListener(this);
 		buttonAddSubject = (Button) findViewById(R.id.subject_delim);
 		buttonAddSubject.setOnClickListener(this);
+		buttonClear = (Button)findViewById(R.id.clear_text);
+		buttonClear.setOnClickListener(this);
+		buttonTrue = (Button)findViewById(R.id.true_btn);
+		buttonTrue.setOnClickListener(this);
+		buttonFalse = (Button)findViewById(R.id.false_btn);
+		buttonFalse.setOnClickListener(this);
 	}
 
 
 	@Override
 	public void onClick(View v) {
+		Calendar c = Calendar.getInstance();
 		switch(v.getId()) {
 			case R.id.buttonSerialSend:
 				serialSend(serialSendText.getText().toString());
@@ -64,6 +74,21 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 				break;
 			case R.id.subject_delim:
 				writeSubjectDelim();
+				break;
+			case R.id.clear_text:
+				serialReceivedText.setText("");
+				break;
+			case R.id.true_btn:
+				writeToFile(String.format("%d-%d-%d:%d-%d-%d-%d, true\n",
+						c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+						c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND),
+						c.get(Calendar.MILLISECOND)));
+				break;
+			case R.id.false_btn:
+				writeToFile(String.format("%d-%d-%d:%d-%d-%d-%d, false\n",
+						c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+						c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND),
+						c.get(Calendar.MILLISECOND)));
 				break;
 		}
 	}
@@ -134,7 +159,9 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 //			if(state == LOW) {
 				Calendar c = Calendar.getInstance();
 				writeToFile(String.format("%d-%d-%d:%d-%d-%d-%d, %d\n",
-						c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND),c.get(Calendar.MILLISECOND), subject_id));
+						c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+						c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND),
+						c.get(Calendar.MILLISECOND), subject_id));
 //			}
 		} catch(Exception e) {
 			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -159,10 +186,10 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fOut);
 			outputStreamWriter.write(data);
 			outputStreamWriter.close();
-			Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
 		}
 		catch (IOException e) {
-			Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
 			Log.e("Exception", "File write failed: " + e.toString());
 		}
 	}
@@ -171,7 +198,8 @@ public class MainActivity  extends BlunoLibrary implements OnClickListener {
 		subject_id ++;
 		Calendar c = Calendar.getInstance();
 		String delim = String.format("=====================subject:%d;datetime:%d-%d-%d;%d-%d-%d-%d;=====================\n",
-				subject_id, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
+				subject_id, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+				c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
 		writeToFile(delim);
 	}
 }

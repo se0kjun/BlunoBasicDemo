@@ -54,16 +54,16 @@
         android:id="@+id/serialSendText"
         android:layout_width="310dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/buttonScan"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="59dp"
         android:background="#555555"
         android:bufferType="editable"
         android:ems="10"
         android:inputType="text"
         android:text="Data sending Area"
         android:textColor="#999999"
-        android:textSize="20dip" />
+        android:textSize="20dip"
+        android:layout_below="@+id/buttonScan"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/buttonScan"
@@ -80,5 +80,29 @@
         android:id="@+id/subject_delim"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear"
+        android:id="@+id/clear_text"
+        android:layout_below="@+id/buttonScan"
+        android:layout_alignStart="@+id/serialSendText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="True"
+        android:id="@+id/true_btn"
+        android:layout_alignTop="@+id/clear_text"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="False"
+        android:id="@+id/false_btn"
+        android:layout_alignTop="@+id/true_btn"
+        android:layout_alignEnd="@+id/serialSendText" />
 
 </RelativeLayout>
