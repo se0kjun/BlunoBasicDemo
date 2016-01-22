@@ -95,14 +95,22 @@
         android:text="True"
         android:id="@+id/true_btn"
         android:layout_alignTop="@+id/clear_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/subject_delim" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="False"
         android:id="@+id/false_btn"
-        android:layout_alignTop="@+id/true_btn"
-        android:layout_alignEnd="@+id/serialSendText" />
+        android:layout_below="@+id/subject_delim"
+        android:layout_alignEnd="@+id/subject_delim" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="end"
+        android:id="@+id/end_btn"
+        android:layout_alignBottom="@+id/false_btn"
+        android:layout_alignEnd="@+id/buttonSerialSend" />
 
 </RelativeLayout>
